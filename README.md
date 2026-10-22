@@ -1,9 +1,13 @@
 # AuraCast — In-Car Browser & Media Streamer for Android & Android Auto
 
+[![English](https://img.shields.io/badge/Language-English-lightgrey.svg)](README_EN.md)
+[![Russian](https://img.shields.io/badge/Language-Русский-blue.svg)](README.md)
 [![Android](https://img.shields.io/badge/Platform-Android%207.0%2B-green.svg)](https://developer.android.com)
 [![Android Auto](https://img.shields.io/badge/Android%20Auto-Compatible-blue.svg)](https://www.android.com/auto/)
 [![License](https://img.shields.io/badge/License-MIT-orange.svg)](LICENSE)
 [![Kotlin](https://img.shields.io/badge/Kotlin-2.2-purple.svg)](https://kotlinlang.org/)
+
+> 🌐 **Language / Язык:** [English Documentation (README_EN.md)](README_EN.md) | **Русская документация**
 
 ---
 

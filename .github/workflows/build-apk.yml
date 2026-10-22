@@ -13,34 +13,66 @@ permissions:
 
 jobs:
   build:
-    name: Build Signed APK
+    name: Build Android APK
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
+        with:
+          lfs: true
 
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
-          distribution: 'zulu'
+          distribution: 'temurin'
           java-version: '17'
-          cache: 'gradle'
 
-      - name: Grant Execute Permission to Gradle
-        run: chmod +x gradlew || true
+      - name: Setup Android SDK Tools
+        uses: android-actions/setup-android@v3
 
-      - name: Build Debug APK
-        run: gradle assembleDebug --stacktrace
+      - name: Accept Android SDK Licenses
+        run: |
+          yes | sdkmanager --licenses || true
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '9.3.1'
+
+      - name: Prepare Keystore and Environment Files
+        run: |
+          # Ensure .env exists for Secrets Gradle Plugin
+          touch .env
+          cp -n .env.example .env || true
+          
+          # Ensure debug.keystore exists (restore from base64 if needed)
+          if [ ! -f "debug.keystore" ] && [ -f "debug.keystore.base64" ]; then
+            base64 -d debug.keystore.base64 > debug.keystore
+          fi
+          ls -lh debug.keystore || true
+
+      - name: Build Debug APK with Gradle
+        run: |
+          gradle assembleDebug --stacktrace --no-daemon
+
+      - name: Verify and Locate Generated APK
+        run: |
+          mkdir -p releases
+          find app/build/outputs/apk/ -name "*.apk" -exec ls -lh {} +
+          if [ -f "app/build/outputs/apk/debug/app-debug.apk" ]; then
+            cp app/build/outputs/apk/debug/app-debug.apk releases/AuraCast-v1.0.apk
+          fi
 
       - name: Upload APK as Workflow Artifact
         uses: actions/upload-artifact@v4
         with:
           name: AuraCast-APK
           path: app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
           retention-days: 90
 
-      - name: Create GitHub Release
+      - name: Publish GitHub Release (Tags or Manual Dispatch)
         if: startsWith(github.ref, 'refs/tags/') || github.event_name == 'workflow_dispatch'
         uses: softprops/action-gh-release@v2
         with:
@@ -50,12 +82,13 @@ jobs:
           draft: false
           prerelease: false
           body: |
-            ## AuraCast APK Download
+            ## AuraCast APK Download / Скачать приложение
             
-            ### 📥 Скачать приложение
-            - **[AuraCast.apk (Прямая ссылка)](https://github.com/${{ github.repository }}/releases/download/${{ github.ref_name }}/app-debug.apk)**
+            ### 📥 Direct APK Download / Скачать файл:
+            - **[AuraCast.apk (Direct Download)](https://github.com/${{ github.repository }}/releases/download/${{ github.ref_name }}/app-debug.apk)**
             
-            ### ⚠️ Отказ от ответственности:
-            Установка и использование программы осуществляется исключительно под личную ответственность водителя.
+            ### ⚠️ Legal Disclaimer / Отказ от ответственности:
+            - **EN**: Installing and using this software while operating a vehicle is strictly at the user's sole risk and liability. Developers bear zero responsibility.
+            - **RU**: Установка и использование программы за рулем осуществляется исключительно под личную ответственность водителя.
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
