@@ -72,20 +72,19 @@ jobs:
           if-no-files-found: error
           retention-days: 90
 
-      - name: Publish GitHub Release (Tags or Manual Dispatch)
-        if: startsWith(github.ref, 'refs/tags/') || github.event_name == 'workflow_dispatch'
+      - name: Publish GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           files: app/build/outputs/apk/debug/app-debug.apk
-          tag_name: ${{ github.ref_name }}
-          name: AuraCast Release ${{ github.ref_name }}
+          tag_name: ${{ startsWith(github.ref, 'refs/tags/') && github.ref_name || 'v1.0' }}
+          name: AuraCast v1.0
           draft: false
           prerelease: false
           body: |
             ## AuraCast APK Download / Скачать приложение
             
             ### 📥 Direct APK Download / Скачать файл:
-            - **[AuraCast.apk (Direct Download)](https://github.com/${{ github.repository }}/releases/download/${{ github.ref_name }}/app-debug.apk)**
+            - **[AuraCast-v1.0.apk (Direct Download)](https://github.com/${{ github.repository }}/releases/download/v1.0/app-debug.apk)**
             
             ### ⚠️ Legal Disclaimer / Отказ от ответственности:
             - **EN**: Installing and using this software while operating a vehicle is strictly at the user's sole risk and liability. Developers bear zero responsibility.
