@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Outer Aura Ring -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#3F72AF"
+        android:strokeWidth="2.5"
+        android:strokeLineCap="round"
+        android:pathData="M 36,36 A 25.5,25.5 0 1,1 72,72" />
+
+    <!-- Inner Core Orb -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#FAF7F2"
+        android:strokeWidth="2"
+        android:pathData="M 54,34 A 20,20 0 1,0 54,74 A 20,20 0 1,0 54,34" />
+
+    <!-- Minimalist Horizontal Equator & Axis -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#FAF7F2"
+        android:strokeWidth="1.5"
+        android:pathData="M 34,54 H 74" />
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#FAF7F2"
+        android:strokeWidth="1.5"
+        android:pathData="M 54,34 C 45,40 45,68 54,74 C 63,68 63,40 54,34 Z" />
+
+    <!-- Accent Dot -->
+    <path
+        android:fillColor="#4A80F0"
+        android:pathData="M 68,36 A 3.5,3.5 0 1,0 68,43 A 3.5,3.5 0 1,0 68,36" />
+</vector>

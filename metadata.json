@@ -1,0 +1,6 @@
+{
+  "name": "AuraCast",
+  "description": "AuraCast — элегантный минималистичный автомобильный веб-браузер для Android Auto со строгим соблюдением требований безопасности Google Play и премиальной молочной дневной темой.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
