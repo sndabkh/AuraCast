@@ -5,7 +5,12 @@
 [![License](https://img.shields.io/badge/License-MIT-orange.svg)](LICENSE)
 [![Kotlin](https://img.shields.io/badge/Kotlin-2.2-purple.svg)](https://kotlinlang.org/)
 
-**AuraCast** — элегантный автомобильный веб-браузер и медиа-хаб, спроектированный для удобного запуска любимых сайтов, видео и аудиосервисов на экране смартфона и интеграции с мультимедийной системой **Android Auto**.
+---
+
+### 📥 [СКАЧАТЬ ГОТОВЫЙ APK (ПРЯМАЯ ССЫЛКА)](releases/AuraCast-v1.0.apk?raw=true)
+
+> **[👉 Нажмите здесь, чтобы скачать AuraCast-v1.0.apk прямо сейчас](releases/AuraCast-v1.0.apk?raw=true)**  
+> *Готовый установочный файл APK уже собран и загружен в репозиторий. Дополнительно работает автоматическая сборка через GitHub Actions.*
 
 ---
 
